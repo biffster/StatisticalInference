@@ -5,17 +5,22 @@ date: "April 16, 2016"
 output: html_document
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+The
 
 ```{r, echo=FALSE}
+set.seed(1024)
 lambda_class_1 <- .2
-rexp(40,lambda_class_1)
 initdata <- replicate(1000,rexp(40,lambda_class_1))
 initMeanData <- replicate(1000,{mean(rexp(40,lambda_class_1))})
+```
+By its definition, an exponential distribution is **not** a normal distribution, and as such, it does not make a gaussian histogram. Instead, it is weighted, going from the highest values at 0 and flattening out to tail along the X axis, as shown with the histogram of our sample:
+```{r, echo=FALSE}
 hist(initdata)
-hist(initMeanData)
+```
 
+However, one would expect a population of mean values to follow a normal distribution, and the histogram below shows that is exactly what happens:
+```{r, echo=FALSE}
+hist(initMeanData)
+mean(initMeanData)
 ```
 
