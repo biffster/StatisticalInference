@@ -21,34 +21,54 @@ initMeanData <- rowMeans(initdata)
 ```
 By its definition, an exponential distribution is **not** a normal distribution, and as such, it does not make a gaussian histogram. Instead, it is weighted, going from the highest values at 0 and flattening out to tail along the X axis, as shown with the histogram:
 ```{r, echo=FALSE}
-hist(initdata)
+hist(initdata, main = "Exponential histogram", xlab = "", ylab="")
 ```
 
 However, one would expect a sample of mean values to follow a normal distribution, and the histogram below shows that is exactly what happens:
 ```{r, echo=FALSE}
-hist(initMeanData)
+hist(initMeanData, main = "Histogram of means", xlab = "", ylab="")
 ```
 
 ### Means
 We can now compare the sample and theoretical data:
 ```{r, echo=FALSE}
-paste("Sample mean:",round(mean(initMeanData),3))
-paste("Theoretical mean:",round(1/lambda_class_1,3))
+sample_mean_class_1 <- round(mean(initMeanData),3)
+theor_mean_class_1 <- round(1/lambda_class_1,3)
+paste("Sample mean:", sample_mean_class_1)
+paste("Theoretical mean:", theor_mean_class_1)
 ```
 As expected, the sample mean closely approximates the theoretical mean, being within 0.026. Further samples would bring this even closer, as predicted by the Central Limit Theorem (CLT).
 
 ### Variance
 The same thing holds true with variances for sample and theoretical data:
 ```{r, echo=FALSE}
-paste("Sample mean:",round(var(initMeanData),3))
-paste("Theoretical mean:",round(1/lambda_class_1^2/n_obs_class_1,3))
+sample_var_class_1 <- round(var(initMeanData),3)
+theor_var_class_1 <- round(1/lambda_class_1^2/n_obs_class_1,3)
+paste("Sample variance:", sample_var_class_1)
+paste("Theoretical variance:", theor_var_class_1)
 ```
 Again, the difference between the variances is negligible and falls perfectly in line with the CLT.
 
 ### Distribution
+```{r, echo=FALSE}
+hist(initMeanData, prob=TRUE, density = 15, col="orange", main = "Normal distribution of means", xlab = "Mean values")
+curve(dnorm(x, mean=sample_mean_class_1, sd=sqrt(sample_var_class_1)), add=TRUE, col="blue", yaxt="n", lwd=2)
+abline(v = 4.974, untf = FALSE, lwd=3, col="red")
+```
+
+The graph plotted above shows a histogram of the means and shows that the sample is very close to a Normal Distribution. One way to prove this is to compare the confidence intervals for the sample and theoretical values. Fortunately, the previous two sections have given us all of the data we need to complete the calculations:
+
+```{r, echo=FALSE}
+sample_conf_levels_class_1 <- round (sample_mean_class_1 + c(-1, 1) * 1.96 * sd(initMeanData) / sqrt(n_obs_class_1),3)
+theor_conf_levels_class_1 <- round (theor_mean_class_1 + c(-1, 1) * 1.96 * sqrt(theor_var_class_1) / sqrt(n_obs_class_1),3)
+    
+cat("Sample confidence levels:     ", sample_conf_levels_class_1)
+cat("Theoretical confidence levels:", theor_conf_levels_class_1)
+```
+Once again, the values approximately match between the sample and theoretical measurements, with a very slight distinction between the two sets. This would seem to indicate that the sample distribution is Normal.
 
 # Appendix
-## Code snippets used to generate this report:
+### Code snippets used to generate this report:
 ```{r, eval=FALSE}
 set.seed(2291)
 lambda_class_1 <- .2
@@ -65,11 +85,34 @@ hist(initdata)
 ```{r, eval=FALSE}
 hist(initMeanData)
 ```
+
+#### Compute means
 ```{r, eval=FALSE}
-paste("Sample mean:",round(mean(initMeanData),3))
-paste("Theoretical mean:",round(1/lambda_class_1,3))
+sample_mean_class_1 <- round(mean(initMeanData),3)
+theor_mean_class_1 <- round(1/lambda_class_1,3)
+paste("Sample mean:", sample_mean_class_1)
+paste("Theoretical mean:", theor_mean_class_1)
 ```
+
+#### Compute variances
 ```{r, eval=FALSE}
-paste("Sample mean:",round(var(initMeanData),3))
-paste("Theoretical mean:",round(1/lambda_class_1^2/n_obs_class_1,3))
+sample_var_class_1 <- round(var(initMeanData),3)
+theor_var_class_1 <- round(1/lambda_class_1^2/n_obs_class_1,3)
+paste("Sample variance:", sample_var_class_1)
+paste("Theoretical variance:", theor_var_class_1)
+```
+
+#### Plot normal distribution graph
+```{r, eval=FALSE}
+hist(initMeanData, prob=TRUE, density = 15, col="orange")
+curve(dnorm(x, mean=sample_mean_class_1, sd=sqrt(sample_var_class_1)), add=TRUE, col="blue", yaxt="n", lwd=2)
+abline(v = 4.974, untf = FALSE, lwd=3, col="red")
+```
+
+#### Compute confidence levels
+```{r, eval=FALSE}
+sample_conf_levels_class_1 <- round (sample_mean_class_1 + c(-1, 1) * 1.96 * sd(initMeanData) / sqrt(n_obs_class_1),3)
+theor_conf_levels_class_1 <- round (theor_mean_class_1 + c(-1, 1) * 1.96 * sqrt(theor_var_class_1) / sqrt(n_obs_class_1),3)
+cat("Sample confidence levels:     ", sample_conf_levels_class_1)
+cat("Theoretical confidence levels:", theor_conf_levels_class_1)
 ```
