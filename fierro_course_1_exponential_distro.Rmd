@@ -8,19 +8,29 @@ output: html_document
 The
 
 ```{r, echo=FALSE}
-set.seed(1024)
+set.seed(2291)
 lambda_class_1 <- .2
-initdata <- replicate(1000,rexp(40,lambda_class_1))
-initMeanData <- replicate(1000,{mean(rexp(40,lambda_class_1))})
+n_sims_class_1 <- 1000
+n_obs_class_1 <- 40
+
+initdata <- matrix(rexp(n_sims_class_1 * n_obs_class_1, rate=lambda_class_1),n_sims_class_1,n_obs_class_1)
+initMeanData <- rowMeans(initdata)
+
 ```
-By its definition, an exponential distribution is **not** a normal distribution, and as such, it does not make a gaussian histogram. Instead, it is weighted, going from the highest values at 0 and flattening out to tail along the X axis, as shown with the histogram of our sample:
+By its definition, an exponential distribution is **not** a normal distribution, and as such, it does not make a gaussian histogram. Instead, it is weighted, going from the highest values at 0 and flattening out to tail along the X axis, as shown with the histogram:
 ```{r, echo=FALSE}
 hist(initdata)
 ```
 
-However, one would expect a population of mean values to follow a normal distribution, and the histogram below shows that is exactly what happens:
+However, one would expect a sample of mean values to follow a normal distribution, and the histogram below shows that is exactly what happens:
 ```{r, echo=FALSE}
 hist(initMeanData)
-mean(initMeanData)
 ```
 
+### Means
+
+We can now compare the sample and distribution data:
+```{r, echo=FALSE}
+paste("Sample mean:",round(mean(initMeanData),3))
+paste("Population (theoretical) mean:",round(1/lambda_class_1,3))
+```
