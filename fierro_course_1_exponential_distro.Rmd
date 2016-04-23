@@ -5,8 +5,10 @@ date: "April 16, 2016"
 output: html_document
 ---
 
+#Synopsis
 The
 
+# Report
 ```{r, echo=FALSE}
 set.seed(2291)
 lambda_class_1 <- .2
@@ -28,9 +30,46 @@ hist(initMeanData)
 ```
 
 ### Means
-
-We can now compare the sample and distribution data:
+We can now compare the sample and theoretical data:
 ```{r, echo=FALSE}
 paste("Sample mean:",round(mean(initMeanData),3))
-paste("Population (theoretical) mean:",round(1/lambda_class_1,3))
+paste("Theoretical mean:",round(1/lambda_class_1,3))
+```
+As expected, the sample mean closely approximates the theoretical mean, being within 0.026. Further samples would bring this even closer, as predicted by the Central Limit Theorem (CLT).
+
+### Variance
+The same thing holds true with variances for sample and theoretical data:
+```{r, echo=FALSE}
+paste("Sample mean:",round(var(initMeanData),3))
+paste("Theoretical mean:",round(1/lambda_class_1^2/n_obs_class_1,3))
+```
+Again, the difference between the variances is negligible and falls perfectly in line with the CLT.
+
+### Distribution
+
+# Appendix
+## Code snippets used to generate this report:
+```{r, eval=FALSE}
+set.seed(2291)
+lambda_class_1 <- .2
+n_sims_class_1 <- 1000
+n_obs_class_1 <- 40
+
+initdata <- matrix(rexp(n_sims_class_1 * n_obs_class_1, rate=lambda_class_1),n_sims_class_1,n_obs_class_1)
+initMeanData <- rowMeans(initdata)
+
+```
+```{r, eval=FALSE}
+hist(initdata)
+```
+```{r, eval=FALSE}
+hist(initMeanData)
+```
+```{r, eval=FALSE}
+paste("Sample mean:",round(mean(initMeanData),3))
+paste("Theoretical mean:",round(1/lambda_class_1,3))
+```
+```{r, eval=FALSE}
+paste("Sample mean:",round(var(initMeanData),3))
+paste("Theoretical mean:",round(1/lambda_class_1^2/n_obs_class_1,3))
 ```
