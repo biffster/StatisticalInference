@@ -2,11 +2,12 @@
 title: "Demonstrating normal distribution models using exponential distribution means"
 author: "Michael Fierro"
 date: "April 16, 2016"
-output: html_document
+graphics: yes
+output: pdf_document
 ---
 
 #Synopsis
-The
+This study is a simulation of sampling data and applying observations from a sample to represent the larger population. This study will use a sample of averages of an exponential distribution, and will determine how the means, variance and distribution of that sample compares to  theoretical values.
 
 # Report
 ```{r, echo=FALSE}
@@ -19,7 +20,7 @@ initdata <- matrix(rexp(n_sims_class_1 * n_obs_class_1, rate=lambda_class_1),n_s
 initMeanData <- rowMeans(initdata)
 
 ```
-By its definition, an exponential distribution is **not** a normal distribution, and as such, it does not make a gaussian histogram. Instead, it is weighted, going from the highest values at 0 and flattening out to tail along the X axis, as shown with the histogram:
+By its definition, an exponential distribution is **not** a normal distribution, and as such, it does not make a Gaussian histogram. Instead, it is weighted, going from the highest values at 0 and flattening out to tail along the X axis, as shown with the histogram:
 ```{r, echo=FALSE}
 hist(initdata, main = "Exponential histogram", xlab = "", ylab="")
 ```
