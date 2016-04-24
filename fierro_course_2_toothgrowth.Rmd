@@ -1,0 +1,37 @@
+---
+title: "Exploratory data analysis of the ToothGrowth Dataset"
+author: "Michael Fierro"
+date: "April 24, 2016"
+output: html_document
+---
+
+# Synopsis
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+# Data exploration
+```{r, echo=FALSE}
+library(datasets)
+library(ggplot2)
+data("ToothGrowth")
+```
+
+
+First, I want to see the columns and rows in the dataset. I use str() because this all shows the column names:
+```{r, echo=FALSE}
+str(ToothGrowth)
+```
+
+&nbsp;
+
+I also want to get a feeling for the actual data in the dataset, so I use summary() for this. The first thing that jumps out at me from the summary is that there is no data for a control group - the minimum dose is not 0, which means that *all of the test subjects got at least a dose of 0.5mg*.
+```{r, echo=FALSE}
+summary(ToothGrowth)
+```
+
+For my final step of data exploration was to create a boxplot to visually show the population data.
+```{r, echo=FALSE}
+boxplot(len ~ supp * dose, data = ToothGrowth, main = "Growth by Dose/Supplement", ylab = "Length of teeth", xlab = "Dose/Supplement", col = c("orange","red"))
+```
+
