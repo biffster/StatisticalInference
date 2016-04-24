@@ -35,3 +35,12 @@ For my final step of data exploration was to create a boxplot to visually show t
 boxplot(len ~ supp * dose, data = ToothGrowth, main = "Growth by Dose/Supplement", ylab = "Length of teeth", xlab = "Dose/Supplement", col = c("orange","red"))
 ```
 
+oj_0.5 <- ToothGrowth$len[31:40]
+oj_1.0 <- ToothGrowth$len[41:50]
+oj_2.0 <- ToothGrowth$len[51:60]
+vc_0.5 <- ToothGrowth$len[1:10]
+vc_1.0 <- ToothGrowth$len[11:20]
+vc_2.0 <- ToothGrowth$len[21:30]
+
+t.test(oj_0.5, vc_0.5, paired=TRUE)
+
