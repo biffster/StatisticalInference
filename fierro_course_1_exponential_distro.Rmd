@@ -21,11 +21,13 @@ initMeanData <- rowMeans(initdata)
 
 ```
 By its definition, an exponential distribution is **not** a normal distribution, and as such, it does not make a Gaussian histogram. Instead, it is weighted, going from the highest values at 0 and flattening out to tail along the X axis, as shown with the histogram:
+
 ```{r, echo=FALSE}
 hist(initdata, main = "Exponential histogram", xlab = "", ylab="")
 ```
 
 However, one would expect a sample of mean values to follow a normal distribution, and the histogram below shows that is exactly what happens:
+
 ```{r, echo=FALSE}
 hist(initMeanData, main = "Histogram of means", xlab = "", ylab="")
 ```
