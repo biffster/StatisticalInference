@@ -122,6 +122,7 @@ $(document).ready(function () {
 
 <div id="synopsis" class="section level1">
 <h1>Synopsis</h1>
+<p>This study aims to compare the effectiveness of vitamin supplements given to a group of guinea pigs to determine which has the biggest positive effect on tooth growth. The data below shows that orange juice more effective than the vitamin supplement in small doses, but both perform equally well with doses &gt; 2.0mg.</p>
 </div>
 <div id="data-exploration" class="section level1">
 <h1>Data exploration</h1>
@@ -131,7 +132,6 @@ $(document).ready(function () {
 ##  $ len : num  4.2 11.5 7.3 5.8 6.4 10 11.2 11.2 5.2 7 ...
 ##  $ supp: Factor w/ 2 levels &quot;OJ&quot;,&quot;VC&quot;: 2 2 2 2 2 2 2 2 2 2 ...
 ##  $ dose: num  0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...</code></pre>
-<p> </p>
 <p>I also want to get a feeling for the actual data in the dataset, so I use summary() for this. The first thing that jumps out at me from the summary is that there is no data for a control group - the minimum dose is not 0, which means that <em>all of the test subjects got at least a dose of 0.5mg</em>.</p>
 <pre class="r"><code>summary(ToothGrowth)</code></pre>
 <pre><code>##       len        supp         dose      
@@ -150,7 +150,7 @@ $(document).ready(function () {
 <p>With the data prepared and the null hypothesis defined, I could now use t.test() to do the actual computations, and the results per dosage are listed below.</p>
 <div id="mg-dose" class="section level2">
 <h2>0.5mg dose</h2>
-<p>At a 0.5 mg dose, there is statistical significant difference between the two supplements. Setting α = 0.05, the results of t.test are:</p>
+<p>At a 0.5 mg dose, there is statistical significant difference between the two supplements. Setting alpha = 0.05, the results of t.test are:</p>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -166,7 +166,7 @@ $(document).ready(function () {
 </div>
 <div id="mg-dose-1" class="section level2">
 <h2>1.0 mg dose</h2>
-<p>At a 1.0 mg dose, there is still a significant difference between the two supplements. Again setting α = 0.05, the results of t.test are:</p>
+<p>At a 1.0 mg dose, there is still a significant difference between the two supplements. Again setting alpha = 0.05, the results of t.test are:</p>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -206,7 +206,8 @@ $(document).ready(function () {
 </div>
 <div id="assumptions" class="section level2">
 <h2>Assumptions</h2>
-<p>As stated earlier, there are many different ways to subset this data and many different ways to infer meaninful patterns from it. My approach assumes that there is a question about how the individual supplements work at various dosages.</p>
+<p>As stated earlier, there are many different ways to subset this data and many different ways to infer meaningful patterns from it. My approach assumes that there is a question about how the individual supplements work at various dosages.</p>
+<p>One major assumption that was not dressed regards control groups. As stated above, there is no data for tests done where the subjects were not given either supplement. Without this information, it is impossible to say for certain that the supplements actually work any better than a subject not getting a supplement. For this study, we are forced to assume that the supplements do lead to statistically significant increases in length.</p>
 </div>
 </div>
 <div id="appendix" class="section level1">

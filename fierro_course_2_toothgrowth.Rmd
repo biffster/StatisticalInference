@@ -21,7 +21,6 @@ First, I want to see the columns and rows in the dataset. I use str() because th
 str(ToothGrowth)
 ```
 
-&nbsp;
 
 I also want to get a feeling for the actual data in the dataset, so I use summary() for this. The first thing that jumps out at me from the summary is that there is no data for a control group - the minimum dose is not 0, which means that *all of the test subjects got at least a dose of 0.5mg*.
 ```{r}
@@ -50,7 +49,7 @@ After data groups were assigned, hypothesis testing could be done. I decided to 
 With the data prepared and the null hypothesis defined, I could now use t.test() to do the actual computations, and the results per dosage are listed below.
 
 ## 0.5mg dose 
-At a 0.5 mg dose, there is statistical significant difference between the two supplements. Setting α = 0.05, the results of t.test are:
+At a 0.5 mg dose, there is statistical significant difference between the two supplements. Setting alpha = 0.05, the results of t.test are:
 
 ```{r echo=FALSE}
 t.test(oj_0.5, vc_0.5, paired=TRUE)
@@ -59,7 +58,7 @@ t.test(oj_0.5, vc_0.5, paired=TRUE)
 With a p-value of 0.015, and the confidence level (1.263, 9.236), the null hypothesis can be rejected.
 
 ## 1.0 mg dose 
-At a 1.0 mg dose, there is still a significant difference between the two supplements. Again setting α = 0.05, the results of t.test are:
+At a 1.0 mg dose, there is still a significant difference between the two supplements. Again setting alpha = 0.05, the results of t.test are:
 
 ```{r echo=FALSE}
 t.test(oj_1.0, vc_1.0, paired=TRUE)
